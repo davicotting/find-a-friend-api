@@ -3,7 +3,9 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "dev": "tsx --watch src/server.ts"
+    "dev": "tsx --watch src/server.ts",
+    "test": "vitest run ./src/use-cases",
+    "test:watch": "vitest ./src/use-cases"
   },
   "repository": {
     "type": "git",
@@ -19,12 +21,17 @@
   "description": "",
   "dependencies": {
     "@prisma/client": "^6.11.1",
+    "@types/bcrypt": "5.0.2",
     "@types/node": "^24.0.13",
+    "bcrypt": "6.0.0",
     "dotenv": "^17.2.0",
     "fastify": "^5.4.0",
     "prisma": "^6.11.1",
     "tsx": "^4.20.3",
     "typescript": "^5.8.3",
+    "vite": "7.0.4",
+    "vite-tsconfig-paths": "5.1.4",
+    "vitest": "3.2.4",
     "zod": "^4.0.5"
   }
 }
