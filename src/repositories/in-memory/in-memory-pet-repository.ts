@@ -1,5 +1,5 @@
 import { Pet, Prisma } from "@/generated/prisma";
-import { PetsRepository } from "../pet-repository";
+import { FilterPetParams, PetsRepository } from "../pet-repository";
 import { randomUUID } from "node:crypto";
 
 export class InMemoryPetsRepository implements PetsRepository {
@@ -17,6 +17,7 @@ export class InMemoryPetsRepository implements PetsRepository {
       description: data.description ?? null,
       id: randomUUID(),
       userId: data.userId,
+      requirements: Array.isArray(data.requirements) ? data.requirements : [],
     };
 
     this.items.push(pet);
@@ -25,7 +26,7 @@ export class InMemoryPetsRepository implements PetsRepository {
   }
 
   async findById(id: string) {
-    const pet = this.items.find((pet) => (pet.id === id));
+    const pet = this.items.find((pet) => pet.id === id);
 
     if (!pet) {
       return null;
@@ -33,4 +34,33 @@ export class InMemoryPetsRepository implements PetsRepository {
 
     return pet;
   }
+
+ async filterPet({
+  cityId,
+  petEnergy,
+  petEnviroment,
+  petSize,
+  requirements,
+}: FilterPetParams): Promise<Pet[]> {
+  const pets = this.items.filter((pet) => {
+    if (pet.cityId !== cityId) return false;
+
+    if (petSize && pet.petSize !== petSize) return false;
+
+    if (petEnviroment && pet.petEnviroment !== petEnviroment) return false;
+
+    if (petEnergy && pet.petEnergy !== petEnergy) return false;
+
+    if (requirements && requirements.length > 0) {
+      const matchesAtLeastOne = requirements.some((requirement) =>
+        pet.requirements.includes(requirement)
+      );
+      if (!matchesAtLeastOne) return false;
+    }
+
+    return true;
+  });
+
+  return pets;
+}
 }

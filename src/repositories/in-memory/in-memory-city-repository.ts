@@ -18,12 +18,22 @@ export class InMemoryCityRepository implements CityRepository {
   }
 
   async findByName(name: string) {
-      const city = this.cities.find((city) => city.name == name);
+    const city = this.cities.find((city) => city.name == name);
 
-      if(!city){
-        return null;
-      }
+    if (!city) {
+      return null;
+    }
 
-      return city;
+    return city;
+  }
+
+  async findById(id: string) {
+    const city = this.cities.find((city) => city.id == id);
+
+    if (!city) {
+      return null;
+    }
+
+    return city;
   }
 }
