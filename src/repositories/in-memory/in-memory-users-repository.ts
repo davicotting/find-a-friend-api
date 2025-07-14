@@ -6,6 +6,7 @@ export class InMemoryUsersRepository implements UsersRepository{
   public items: User[] = [];
 
   async findByUserId(userId: string) {
+    
     const userWithSameId = this.items.find((user) => user.id == userId);
 
     if (!userWithSameId) {

@@ -1,7 +1,4 @@
 import { describe, expect, it, beforeEach } from "vitest";
-import { CreateOrgUseCase } from "./create-user";
-import { InMemoryUsersRepository } from "@/repositories/in-memory/in-memory-users-repository";
-import { EmailAlreadyExistsError } from "./errors/email-alredy-exists-error";
 import { InMemoryCityRepository } from "@/repositories/in-memory/in-memory-city-repository";
 import { CreateCityUseCase } from "./create-city";
 import { CityAlreadyExistsError } from "./errors/city-already-exists-error";

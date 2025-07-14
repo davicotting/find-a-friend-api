@@ -20,7 +20,7 @@
   "homepage": "https://github.com/davicotting/find-a-friend-api#readme",
   "description": "",
   "dependencies": {
-    "@prisma/client": "^6.11.1",
+    "@prisma/client": "6.11.1",
     "@types/bcrypt": "5.0.2",
     "@types/node": "^24.0.13",
     "bcrypt": "6.0.0",

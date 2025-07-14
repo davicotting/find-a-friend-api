@@ -1,5 +1,5 @@
 import { describe, expect, it, beforeEach } from "vitest";
-import { CreateOrgUseCase } from "./create-user";
+import { CreateUserUseCase } from "./create-user";
 import { InMemoryUsersRepository } from "@/repositories/in-memory/in-memory-users-repository";
 import { EmailAlreadyExistsError } from "./errors/email-alredy-exists-error";
 import { InMemoryPetsRepository } from "@/repositories/in-memory/in-memory-pet-repository";

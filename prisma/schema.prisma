@@ -35,8 +35,7 @@ model Pet {
   name        String
   description String?
 
-  id           String         @unique @default(uuid())
-  requirements Requirements[]
+  id String @unique @default(uuid())
 
   created_at DateTime @default(now())
 
@@ -49,18 +48,12 @@ model Pet {
   petSize       PetSize
   petEnergy     Int
   petEnviroment PetEnviroment
-  
-  userId        String
-  cityId        String
+
+  userId       String
+  cityId       String
+  requirements String[] @default([])
 
   @@map("pets")
-}
-
-model Requirements {
-  id          String @unique @default(uuid())
-  pet         Pet    @relation(fields: [petId], references: [id])
-  petId       String
-  requirement String
 }
 
 model User {
@@ -77,6 +70,7 @@ model User {
 
   @@map("users")
 }
+
 model City {
   id         String   @id @default(uuid())
   name       String   @unique

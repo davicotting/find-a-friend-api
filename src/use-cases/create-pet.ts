@@ -1,4 +1,4 @@
-import { Pet, PetEnviroment, PetSize, Requirements } from "@/generated/prisma";
+import { Pet, PetEnviroment, PetSize } from "@/generated/prisma";
 import { PetsRepository } from "@/repositories/pet-repository";
 import { UsersRepository } from "@/repositories/users-repository";
 import { ForbiddenRoleActionError } from "./errors/forbidden-role-action-error";
@@ -14,6 +14,7 @@ interface CreatePetUseCaseRequest {
   petSize: PetSize;
   description: string | null;
   userId: string;
+  requirements?: string[];
 }
 
 interface CreatePetUseCaseResponse {
@@ -35,6 +36,7 @@ export class CreatePetUseCase {
     petEnviroment,
     petSize,
     userId,
+    requirements
   }: CreatePetUseCaseRequest): Promise<CreatePetUseCaseResponse> {
     const user = await this.usersRepository.findByUserId(userId);
 
@@ -55,7 +57,7 @@ export class CreatePetUseCase {
       petSize,
       userId,
       description,
-      
+      requirements
     });
 
     return {
