@@ -16,10 +16,20 @@ export class InMemoryPetsRepository implements PetsRepository {
       created_at: new Date(),
       description: data.description ?? null,
       id: randomUUID(),
-      userId: data.userId
+      userId: data.userId,
     };
 
-    this.items.push();
+    this.items.push(pet);
+
+    return pet;
+  }
+
+  async findById(id: string) {
+    const pet = this.items.find((pet) => (pet.id === id));
+
+    if (!pet) {
+      return null;
+    }
 
     return pet;
   }
