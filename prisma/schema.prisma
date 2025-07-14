@@ -21,7 +21,7 @@ enum PetSize {
 }
 
 enum Role {
-  ADMIN
+  ORG
   USER
 }
 
@@ -36,15 +36,13 @@ model Pet {
   description String?
 
   id           String         @unique @default(uuid())
-  Requirements Requirements[]
+  requirements Requirements[]
 
   created_at DateTime @default(now())
 
-  org   Org    @relation(fields: [orgId], references: [id])
-  orgId String
+  user User @relation(fields: [userId], references: [id])
 
-  city          City          @relation(fields: [cityName], references: [name])
-  cityName      String
+  city City @relation(fields: [cityId], references: [id])
 
   address String
 
@@ -52,18 +50,20 @@ model Pet {
   petEnergy     Int
   petEnviroment PetEnviroment
   
+  userId        String
+  cityId        String
 
   @@map("pets")
 }
 
 model Requirements {
-  id          String  @unique @default(uuid())
-  pet         Pet     @relation(fields: [petId], references: [id])
+  id          String @unique @default(uuid())
+  pet         Pet    @relation(fields: [petId], references: [id])
   petId       String
   requirement String
 }
 
-model Org {
+model User {
   role       Role
   id         String   @unique @default(uuid())
   created_at DateTime @default(now())
@@ -75,9 +75,8 @@ model Org {
 
   Pet Pet[]
 
-  @@map("orgs")
+  @@map("users")
 }
-
 model City {
   id         String   @id @default(uuid())
   name       String   @unique

@@ -1,19 +1,19 @@
 import { describe, expect, it, beforeEach } from "vitest";
-import { CreateOrgUseCase } from "./create-org";
-import { InMemoryOrgRepository } from "@/repositories/in-memory/in-memory-org-repository";
+import { CreateOrgUseCase } from "./create-user";
+import { InMemoryUsersRepository } from "@/repositories/in-memory/in-memory-users-repository";
 import { EmailAlreadyExistsError } from "./errors/email-alredy-exists-error";
 
-let inMemoryOrgRepository: InMemoryOrgRepository;
+let inMemoryUsersRepository: InMemoryUsersRepository;
 let sut: CreateOrgUseCase;
 
 describe("Create Org Use Case", () => {
   beforeEach(() => {
-    inMemoryOrgRepository = new InMemoryOrgRepository();
-    sut = new CreateOrgUseCase(inMemoryOrgRepository);
+    inMemoryUsersRepository = new InMemoryUsersRepository();
+    sut = new CreateOrgUseCase(inMemoryUsersRepository);
   });
 
-  it("should create an user", async () => {
-    const { org } = await sut.execute({
+  it("should be able to create an user", async () => {
+    const { user } = await sut.execute({
       email: "davicotting2323@gmail.com",
       password: "123456",
       name: "Org Davi Cotting",
@@ -21,16 +21,18 @@ describe("Create Org Use Case", () => {
       role: "USER",
     });
 
-    expect(org.created_at).toEqual(expect.any(Date));
+
+    expect(user.role).toBe("USER")
+    expect(user.created_at).toEqual(expect.any(Date));
   });
 
-  it("should be not able to creat an org with same email", async () => {
+  it("should be not able to create an ORG or USER with same email", async () => {
     await sut.execute({
       email: "davicotting2323@gmail.com",
       password: "123456",
       name: "Org Davi Cotting",
       phone: "85988483936",
-      role: "USER",
+      role: "ORG", 
     });
 
     await expect(() =>
@@ -39,9 +41,8 @@ describe("Create Org Use Case", () => {
         password: "123456",
         name: "Org Davi Cotting",
         phone: "85988483936",
-        role: "USER",
+        role: "ORG",
       })
     ).rejects.toBeInstanceOf(EmailAlreadyExistsError);
-    
-  });
+  }); 
 });
