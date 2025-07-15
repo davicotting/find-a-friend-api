@@ -4,8 +4,10 @@
   "main": "index.js",
   "scripts": {
     "dev": "tsx --watch src/server.ts",
-    "test": "vitest run ./src/use-cases",
-    "test:watch": "vitest ./src/use-cases"
+    "test": "vitest run --project unit",
+    "test:e2e": "vitest run --project e2e",
+    "test:watch": "vitest ./src/use-cases",
+    "test:e2e:watch": "vitest --project e2e"
   },
   "repository": {
     "type": "git",
@@ -20,13 +22,17 @@
   "homepage": "https://github.com/davicotting/find-a-friend-api#readme",
   "description": "",
   "dependencies": {
+    "@fastify/cookie": "11.0.2",
+    "@fastify/jwt": "9.1.0",
     "@prisma/client": "6.11.1",
     "@types/bcrypt": "5.0.2",
     "@types/node": "^24.0.13",
+    "@types/supertest": "6.0.3",
     "bcrypt": "6.0.0",
     "dotenv": "^17.2.0",
     "fastify": "^5.4.0",
     "prisma": "^6.11.1",
+    "supertest": "7.1.3",
     "tsx": "^4.20.3",
     "typescript": "^5.8.3",
     "vite": "7.0.4",
