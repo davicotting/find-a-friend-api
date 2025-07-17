@@ -3,7 +3,8 @@ import * as zod from "zod"
 
 const envValidateSchema = zod.object({
     PORT: zod.coerce.number().default(1111),
-    DATABASE_URL: zod.url()
+    DATABASE_URL: zod.url(),
+    JWT_SECRET: zod.string()
 });
 
 const _env = envValidateSchema.safeParse(process.env);
